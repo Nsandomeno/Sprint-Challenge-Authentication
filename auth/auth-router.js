@@ -21,6 +21,7 @@ router.post('/register', (req, res) => {
         res.status(201).json({message:"Registered!"})
       })
       .catch(({name, message, stack}) => {
+        // console.log('Testing error in register:', newUser)
         res.status(500).json({name:name, message:message, stack:stack})
       })
   } else {
@@ -37,6 +38,7 @@ router.post('/login', (req, res) => {
     .then((user) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         token = generateToken(user)
+        console.log("This is the response object at login:", user)
         res.status(200).json({message:`Welcome, ${user.username}!`, token})
       } else {
         res.status(401).json({ message:"You're username or password are incorrect." })
